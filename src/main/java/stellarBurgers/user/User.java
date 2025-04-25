@@ -1,9 +1,10 @@
 package stellarBurgers.user;
 
-
-import java.util.concurrent.ThreadLocalRandom;
+import com.github.javafaker.Faker;
 
 public class User {
+
+    private static final Faker faker = new Faker();
 
     private String email;
     private String password;
@@ -19,16 +20,19 @@ public class User {
 
     }
 
-    // пользователь со всеми обязательными полями
     public static User random() {
-        int suffix = ThreadLocalRandom.current().nextInt(100, 100_000);
-        return new User("user" + suffix + "@yandex.ru", "password123", "TestUser");
+        String email = faker.internet().emailAddress();
+        String password = faker.internet().password();
+        String name = faker.name().firstName();
+        return new User(email, password, name);
+
     }
 
-    // пользователь без "пароля"
     public static User randomWithoutPassword() {
-        int suffix = ThreadLocalRandom.current().nextInt(100, 100_000);
-        return new User("user" + suffix + "@yandex.ru", null, "TestUserTwo");
+        String email = faker.internet().emailAddress();
+        String name = faker.name().firstName();
+        return new User(email, null, name);
+
     }
 
 
